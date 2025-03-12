@@ -1,0 +1,44 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: test_add.py
+      id: test_add-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 10
+        setup-command: ''
+    - name: test_fac.py
+      id: test_fac-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 10
+        setup-command: ''
+    - name: test_is_prime.py
+      id: test_is_prime-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 10
+        setup-command: ''
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST_ADD-PY_RESULTS: "${{steps.test_add-py.outputs.result}}"
+        TEST_FAC-PY_RESULTS: "${{steps.test_fac-py.outputs.result}}"
+        TEST_IS_PRIME-PY_RESULTS: "${{steps.test_is_prime-py.outputs.result}}"
+      with:
+        runners: test_add-py,test_fac-py,test_is_prime-py
