@@ -7,4 +7,4 @@ class TestFacFunction(unittest.TestCase):
         self.assertEqual(factorial(1), 1)
         self.assertEqual(factorial(5), 120)
 if __name__ == "__main__":
-    unittest.test_factorial()
+    unittest.main()
