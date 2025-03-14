@@ -1,5 +1,4 @@
 import unittest
-import numpy
 from is_prime import is_prime
 class TestIsPrimeFunction(unittest.TestCase):
     def test_is_prime(self):
